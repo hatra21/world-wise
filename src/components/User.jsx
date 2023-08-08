@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/FakeAuthContext";
 import styles from "./styles/User.module.css";
 
 const FAKE_USER = {
@@ -8,9 +10,13 @@ const FAKE_USER = {
 };
 
 export function User() {
-  const user = FAKE_USER;
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  function handleClick() {}
+  function handleClick() {
+    logout();
+    navigate("/");
+  }
 
   return (
     <div className={styles.user}>
@@ -22,7 +28,6 @@ export function User() {
 }
 
 /*
-CHALLENGE
 
 1) Add `AuthProvider` to `App.jsx`
 2) In the `Login.jsx` page, call `login()` from context
